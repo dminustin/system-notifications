@@ -1,0 +1,62 @@
+{
+    "name": "dminustin/system-notifications",
+    "description": "Laravel system notifications (multiple channels}",
+    "keywords": ["laravel", notifications", broadcating", logs"],
+    "homepage": "https://github.com/dminustin/system-notifications",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Danila Minustin",
+            "email": "danila.minustin@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4|^8.0",
+        "psr/cache": "^1.0"
+    },
+    "require-dev": {
+        "doctrine/lexer": "^1.0.1",
+        "egulias/email-validator": "^2.1",
+        "friendsofphp/php-cs-fixer": "*",
+        "laravel/framework": "^8.83",
+        "nunomaduro/larastan": "^1.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dminustin\\SystemNotifications\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dminustin\\SystemNotifications\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit ./tests",
+        "analyze": "./vendor/bin/phpstan analyze ./src ./tests",
+        "cs": [
+            "./vendor/bin/php-cs-fixer --allow-risky=yes fix ./src",
+            "vendor/bin/php-cs-fixer --allow-risky=yes fix ./tests"
+        ],
+        "publish": [
+            "./vendor/bin/composer cs && composer analyze && composer test && git add . && git commit -m 'Publishing' && git push"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dminustin\\SystemNotifications\\SystemNotificationsServiceProvider"
+            ],
+            "aliases": {
+                "SystemNotifications": "Dminustin\\SystemNotifications\\SystemNotificationsFacade"
+            }
+        }
+    }
+}

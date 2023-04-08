@@ -1,7 +1,7 @@
 {
     "name": "dminustin/system-notifications",
     "description": "Laravel system notifications (multiple channels}",
-    "keywords": ["laravel", notifications", broadcating", logs"],
+    "keywords": ["laravel", "notifications", "broadcating", "logs"],
     "homepage": "https://github.com/dminustin/system-notifications",
     "license": "MIT",
     "type": "library",

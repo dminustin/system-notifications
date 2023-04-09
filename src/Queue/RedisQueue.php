@@ -14,7 +14,7 @@ class RedisQueue extends BaseQueue
     protected \Redis $connection;
     protected string $prefix;
 
-    public function __construct(\Redis $connection = null, string $prefix = '')
+    public function __construct(\Redis $connection = null, string $prefix = 'broadcast')
     {
         if (!$connection) {
             $this->connection = RedisFacade::connection('redis')->client();

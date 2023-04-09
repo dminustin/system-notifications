@@ -11,6 +11,6 @@ class QueueFactory
 {
     public function getQueue(): BaseQueue
     {
-        return new RedisQueue();
+        return new RedisQueue(null);
     }
 }

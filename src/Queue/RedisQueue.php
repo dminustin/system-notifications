@@ -7,15 +7,15 @@ namespace Dminustin\SystemNotifications\Queue;
 use Dminustin\SystemNotifications\BaseClasses\BaseNotificationPayload;
 use Dminustin\SystemNotifications\BaseClasses\BaseQueue;
 use Dminustin\SystemNotifications\Enums\NotificationLevelEnum;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Redis as RedisFacade;
 
 class RedisQueue extends BaseQueue
 {
-    protected Redis $connection;
-    public function __construct(Redis $connection = null)
+    protected \Redis $connection;
+    public function __construct(\Redis $connection = null)
     {
         if (!$connection) {
-            $this->connection = Redis::connection('redis')->client();
+            $this->connection = RedisFacade::connection('redis')->client();
         } else {
             $this->connection = $connection;
         }

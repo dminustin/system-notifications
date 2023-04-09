@@ -11,14 +11,23 @@ use Illuminate\Support\Facades\Redis;
 
 class RedisQueue extends BaseQueue
 {
+    protected Redis $connection;
+    public function __construct(Redis $connection = null)
+    {
+        if (!$connection) {
+            $this->connection = Redis::connection('redis')->client();
+        } else {
+            $this->connection = $connection;
+        }
+    }
     public function put($queue, BaseNotificationPayload $payload): bool
     {
-        return (bool) Redis::connection('redis')->client()->rPush($queue, (string) $payload);
+        return (bool) $this->connection->rPush($queue, (string) $payload);
     }
 
     public function get($queue): ?BaseNotificationPayload
     {
-        $result = Redis::connection('redis')->client()->lPop($queue);
+        $result = $this->connection->lPop($queue);
         $decoded = $result ? json_decode($result) : null;
 
         if (empty($decoded)) {

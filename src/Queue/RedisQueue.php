@@ -12,22 +12,25 @@ use Illuminate\Support\Facades\Redis as RedisFacade;
 class RedisQueue extends BaseQueue
 {
     protected \Redis $connection;
-    public function __construct(\Redis $connection = null)
+    protected string $prefix;
+
+    public function __construct(\Redis $connection = null, string $prefix = '')
     {
         if (!$connection) {
             $this->connection = RedisFacade::connection('redis')->client();
         } else {
             $this->connection = $connection;
         }
+        $this->prefix = $prefix;
     }
     public function put($queue, BaseNotificationPayload $payload): bool
     {
-        return (bool) $this->connection->rPush($queue, (string) $payload);
+        return (bool) $this->connection->rPush($this->prefix . '_' . $queue, (string) $payload);
     }
 
     public function get($queue): ?BaseNotificationPayload
     {
-        $result = $this->connection->lPop($queue);
+        $result = $this->connection->lPop($this->prefix . '_' . $queue);
         $decoded = $result ? json_decode($result) : null;
 
         if (empty($decoded)) {

@@ -21,7 +21,7 @@ class SlackTransport extends BaseNotificationTransport
         $message = ['payload' => json_encode([
             'channel' => '#website-updates',
             'username' => 'webhookbot',
-            'text' => '[' . env('APP_NAME') . '] ' . $notification->message . ' updated',
+            'text' => '[' . env('APP_NAME') . '] ' . $notification->message,
             'icon_emoji' => ':' . $icon . ':'
         ])];
 

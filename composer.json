@@ -14,10 +14,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.2",
         "psr/cache": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.13@dev",
         "doctrine/lexer": "^1.0.1",
         "egulias/email-validator": "^2.1",
         "friendsofphp/php-cs-fixer": "*",
@@ -39,8 +40,8 @@
         "test": "./vendor/bin/phpunit ./tests",
         "analyze": "./vendor/bin/phpstan analyze ./src ./tests",
         "cs": [
-            "./vendor/bin/php-cs-fixer --allow-risky=yes fix ./src",
-            "vendor/bin/php-cs-fixer --allow-risky=yes fix ./tests"
+            "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --allow-risky=yes fix ./src",
+            "PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer --allow-risky=yes fix ./tests"
         ],
         "publish": [
             "./vendor/bin/composer cs && composer analyze && composer test && git add . && git commit -m 'Publishing' && git push"
